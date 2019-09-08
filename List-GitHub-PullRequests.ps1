@@ -40,7 +40,7 @@ foreach($repositoryUri in $repositoryUris)
 {
     if ($isFirst)
     {
-        $isFirst = $true
+        $isFirst = $false
     }
     else 
     {
