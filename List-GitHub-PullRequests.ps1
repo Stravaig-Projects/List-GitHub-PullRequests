@@ -48,6 +48,11 @@ foreach($repositoryUri in $repositoryUris)
         Write-Host ([string]::New('*',80));
     }
     $pullRequests = Get-GitHubPullRequest -uri $repositoryUri -State Open -NoStatus;
+    if ($null -eq $pullRequests)
+    {
+        Write-Host "There are no open PR(s) on $repositoryUri."
+        continue;
+    }
     if ($pullRequests.GetType().Name -eq "PSCustomObject")
     {
         # Always be an array
