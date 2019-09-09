@@ -1,3 +1,5 @@
+# This script is based on a script at https://github.com/Stravaig-Projects/List-GitHub-PullRequests
+
 [CmdletBinding()]
 param
 (
