@@ -70,15 +70,28 @@ foreach($repositoryUri in $repositoryUris)
             Write-Host "There is/are $count open PR(s) on $repoName.";
             $isFirstPr = $false;
         }
+
+        $pullRequest = Get-GitHubPullRequest -uri $repositoryUri -PullRequest $pullRequest.number -State Open -NoStatus;
+
         $number = $pullRequest.number;
         $prUrl = $pullRequest.html_url;
         $title = $pullRequest.title;
         $userName = $pullRequest.user.login;
         $createdAt = $pullRequest.created_at;
+        $mergeState = $pullRequest.mergeable_state;
         $createdDate = (Get-Date $createdAt -Format $DateFormat)
 
-        Write-Host " * #$number : $title";
-        Write-Host "   Opened by: $userName on $createdDate"
-        Write-Host "   Link: $prUrl";
+        $colour = "White";
+        if ($mergeState -eq "dirty" -or $mergeState -eq "behind"){
+            $colour = "Yellow" # Needs rebased
+        }
+        if ($mergeState -eq "unstable" -or $mergeState -eq "blocked") {
+            $colour = "Red" # Failing status check or otherwise blocked.
+        }
+
+        Write-Host " * #$number : $title" -ForegroundColor $colour;
+        Write-Host "   Opened by: $userName on $createdDate" -ForegroundColor $colour;
+        Write-Host "   Link: $prUrl" -ForegroundColor $colour;
+        Write-Host "   Merge state: $mergeState" -ForegroundColor $colour;
     }
 }
