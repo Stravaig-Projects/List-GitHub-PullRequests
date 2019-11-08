@@ -29,7 +29,7 @@ else
 
 if ((Test-GitHubAuthenticationConfigured) -eq $false)
 {
-    Write-Warning "You must call Set-GitHubAuthentication prior to running this script.";
+    Write-Warning "You must call Set-GitHubAuthentication prior to running this script. For more details, see: https://github.com/Stravaig-Projects/List-GitHub-PullRequests#github-personal-access-token";
     Exit 1;
 }
 else 
