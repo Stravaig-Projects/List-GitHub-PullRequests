@@ -71,7 +71,7 @@ foreach($repositoryUri in $repositoryUris)
             $isFirstPr = $false;
         }
         $number = $pullRequest.number;
-        $prUrl = $pullRequest.url;
+        $prUrl = $pullRequest.html_url;
         $title = $pullRequest.title;
         $userName = $pullRequest.user.login;
         $createdAt = $pullRequest.created_at;
